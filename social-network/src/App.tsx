@@ -19,14 +19,12 @@ const App = (props: PropsType) => {
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
                     <Routes>
-                        <Route path='/dialogs/*' element={<Dialogs likesCount={props.likesCount} message={props.message}
-                                                                   id={props.id} name={props.name}/>}/>
-                        <Route path='/profile' element={<Profile/>}/>
+                        <Route path='/dialogs/*' element = {<Dialogs/>}/>
+                        <Route path='/profile' element = {<Profile/>}/>
                     </Routes>
                 </div>
             </div>
         </BrowserRouter>
     );
 }
-
 export default App;

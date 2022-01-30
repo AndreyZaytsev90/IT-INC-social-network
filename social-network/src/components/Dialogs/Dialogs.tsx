@@ -7,14 +7,12 @@ import {dialogs, messages, PropsType} from "../../index";
 
 const Dialogs = (props: PropsType) => {
 
-   /* let dialogs = [ - выносим в
+   /* let dialogs = [
         {id: 1, name: "Andrew"},
         {id: 2, name: "Olga"},
         {id: 3, name: "Petr"},
         {id: 4, name: "Sergey"},]*/
-
-    let dialogsElements = dialogs.map((dialog) => <DialogItem name={dialog.name} id={dialog.id}/>);
-
+    
     /*     [
          <DialogItem name={dialogs[0].name} id={dialogs[0].id}/>, // Массив JSX элементов
          <DialogItem name={dialogs[1].name} id={dialogs[1].id}/>,
@@ -31,8 +29,9 @@ const Dialogs = (props: PropsType) => {
                     <Message message={messages[1].message} id={messages[1].id}/>
                     <Message message={messages[2].message} id={messages[2].id}/>*/
 
+    let dialogsElements = dialogs.map((dialog) => <DialogItem name={dialog.name} id={dialog.id}/>);
 
-    let messagesElement = messages.map((message) => <Message message={message.message} id={message.id}/>)
+    let messagesElements = messages.map((message) => <Message message={message.message} id={message.id}/>)
 
 
     return (
@@ -42,7 +41,7 @@ const Dialogs = (props: PropsType) => {
             </div>
             <div className={s.messages}>
                 <div>
-                    {messagesElement}
+                    {messagesElements}
                 </div>
             </div>
         </div>

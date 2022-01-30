@@ -5,10 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 export type PropsType = {
-    message: string
-    name: string
-    likesCount: number
-    id: number
+    message?: string
+    name?: string
+    likesCount?: number
+    id?: number
 }
 
 export let dialogs  = [
