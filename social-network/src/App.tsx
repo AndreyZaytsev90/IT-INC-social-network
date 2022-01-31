@@ -6,11 +6,18 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Dialogs from './components/Dialogs/Dialogs';
-import {PropsType} from "./index";
+import {DialogsType, MessageType, PostType} from "./index";
 
 
 
-const App = (props: PropsType) => {
+
+type AppPropsType = {
+    posts: PostType[]
+    dialogs: DialogsType[]
+    messages: MessageType[]
+}
+
+const App = (props: AppPropsType) => {
 
     return (
         <BrowserRouter>
@@ -19,8 +26,8 @@ const App = (props: PropsType) => {
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
                     <Routes>
-                        <Route path='/dialogs/*' element = {<Dialogs/>}/>
-                        <Route path='/profile' element = {<Profile/>}/>
+                        <Route path='/dialogs/*' element = {<Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
+                        <Route path='/profile'  element = {<Profile posts={props.posts} />}/>
                     </Routes>
                 </div>
             </div>
