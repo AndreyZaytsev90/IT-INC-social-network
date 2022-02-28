@@ -3,33 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import MyPosts from "./components/Profile/My posts/MyPosts";
+import {state} from "./redux/state";
 
-/*export type PropsType = {
-    message: string
-    name: string
-    likesCount: number
-    id: number
-}
-export type DialogsPropsType = {
-    id : number
-    name: string
-    message: string
-}
-
-export type PostPropsType = {
-    message: string
-    likesCount: number
-}
-
-export type MyPostsPropsType = {
-    id : number
-    message: string
-    likesCount: number
-    name: string
-}*/
-
-export type MessageType = {
+/* export type MessageType = {
     id : number
     message: string
 }
@@ -61,12 +37,12 @@ export let messages: MessageType[] = [
     {id: 2, message: "How is your it-kamasutra?"},
     {id: 3, message: "Yo"},
     {id: 4, message: "How do you do?"}
-]
+]*/
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App posts={posts} messages={messages} dialogs={dialogs}  />
+    <App appState = {state}  />
   </React.StrictMode>,
   document.getElementById('root')
 );
