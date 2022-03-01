@@ -2,13 +2,8 @@ import React from "react";
 import s from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {DialogsType, MessageType} from "../../redux/state";
+import {DialogsPropsType} from "../../redux/state";
 
-type DialogsPropsType = {
-    dialogs: DialogsType[]
-    messages: MessageType[]
-
-}
 
 
 const Dialogs = (props: DialogsPropsType) => {
@@ -35,7 +30,7 @@ const Dialogs = (props: DialogsPropsType) => {
                     <Message message={messages[1].message} id={messages[1].id}/>
                     <Message message={messages[2].message} id={messages[2].id}/>*/
 
-    let dialogsElements = props.dialogs.map((dialog) => <DialogItem name={dialog.name} id={dialog.id}/>);
+    let dialogsElements = props.dialogs.map((dialog) => <DialogItem name={dialog.name} id={dialog.id} avatar={dialog.avatar}/>);
 
     let messagesElements = props.messages.map((message) => <Message message={message.message} id={message.id}/>)
 
@@ -43,6 +38,7 @@ const Dialogs = (props: DialogsPropsType) => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
+             {/*   <img alt="Andrey" src="../../avatars/Olga.jpg"/>*/}
                 {dialogsElements}
             </div>
             <div className={s.messages}>

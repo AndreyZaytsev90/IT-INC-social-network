@@ -1,29 +1,30 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {PostType} from "../../../redux/state";
+import {MyPostsPropsType} from "../../../redux/state";
 
-
-
-type MyPostsPropsType = {
-    posts: PostType[]
-}
 
 const MyPosts = (props: MyPostsPropsType) => {
     /*let posts = [
         {id: 1, message: "Hi, how are you?", likesCount: 30},
         {id: 2, message: "It's my first post", likesCount: 32},
     ]*/
-debugger
-    let postsElement = props.posts.map((post)=> <Post message={post.message} likesCount={post.likesCount} id={post.id}/>)
+    let postsElement = props.posts.map((post) => <Post message={post.message} likesCount={post.likesCount} id={post.id}/>)
+
+    let newPostElement = useRef<HTMLTextAreaElement | null>(null)
+
+    const onClickAddPostHandler = () => {
+        let text = newPostElement.current!.value
+        return alert(text)
+    }
 
     return <div className={s.postsBlock}>
         <h3>My posts </h3>
         <div>
             <div>
-                <div><textarea>Your text...</textarea></div>
+                <div><textarea ref={newPostElement}>text</textarea></div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={onClickAddPostHandler}>Add post</button>
                 </div>
                 <div>
                     <button>Remove</button>

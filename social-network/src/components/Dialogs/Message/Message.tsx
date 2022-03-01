@@ -1,13 +1,24 @@
-import React from "react";
+import React, {useRef} from "react";
 import s from "./../Dialogs.module.css"
+import {MessagePropsType} from "../../../redux/state";
 
-type MessagePropsType = {
-    message: string
-    id: number
-}
 
 const Message = (props: MessagePropsType) => {
-    return <div className={s.dialog}>{props.message}</div>
+    let newPostElement = useRef<HTMLTextAreaElement | null>(null)
+
+    const onClickAddPostHandler = () => {
+        let text = newPostElement.current!.value
+        return alert(text)
+    }
+    return (
+        <div>
+            <div className={s.dialog}>{props.message}</div>
+            <div><textarea ref={newPostElement}>text</textarea></div>
+            <div>
+                <button onClick={onClickAddPostHandler}>Add post</button>
+            </div>
+        </div>
+        )
 }
 
 export default Message
