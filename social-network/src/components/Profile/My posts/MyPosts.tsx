@@ -14,8 +14,10 @@ const MyPosts = (props: MyPostsPropsType) => {
     let newPostElement = useRef<HTMLTextAreaElement | null>(null)
 
     const onClickAddPostHandler = () => {
-        let text = newPostElement.current!.value
-        return alert(text)
+        /*let text = newPostElement.current?.value
+        return alert(text)*/
+        if (props.addPost && newPostElement.current) props.addPost(newPostElement.current.value)
+        newPostElement.current!.value = ""
     }
 
     return <div className={s.postsBlock}>

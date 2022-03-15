@@ -1,14 +1,13 @@
 import {v1} from "uuid";
+import {rerenderEntireTree} from "../render";
 /*import AvaAndrey from '../avatars/Andrey.jpg'
 import AvaOlga from '../avatars/Olga.jpg'
 import AvaPetr from '../avatars/Petr.jpg'*/
-
 
 export type StateType = {
     profilePage: MyPostsPropsType
     dialogsPage: DialogsPropsType
 }
-
 export type MessagePropsType = {
     id: string
     message: string
@@ -30,28 +29,8 @@ export type PostPropsType = {
 }
 export type MyPostsPropsType = {
     posts: Array<PostPropsType>
+    addPost?: (postMessage: string) => void
 }
-
-
-
-/*export let posts: PostType[] = [
-    {id: 1, message: "Hi, how are you?", likesCount: 30},
-    {id: 2, message: "It's my first post", likesCount: 32}
-]
-
-export let dialogs: DialogsType[] = [
-    {id: 1, name: "Andrew"},
-    {id: 2, name: "Olga"},
-    {id: 3, name: "Petr"},
-    {id: 4, name: "Sergey"}
-]
-
-export let messages: MessageType[] = [
-    {id: 1, message: "Hi"},
-    {id: 2, message: "How is your it-kamasutra?"},
-    {id: 3, message: "Yo"},
-    {id: 4, message: "How do you do?"}
-]*/
 
 export let state: StateType = {
     profilePage: {
@@ -76,12 +55,13 @@ export let state: StateType = {
     }
 }
 
-export let addPost = (postMessage: string) => {
-    let newPost: PostPropsType = {
+export const addPost = (postMessage: string) => {
+    const newPost: PostPropsType = {
         id: v1(),
         message: postMessage,
         likesCount: 2,
     }
 
     state.profilePage.posts.push(newPost)
+    rerenderEntireTree(state)
 }
