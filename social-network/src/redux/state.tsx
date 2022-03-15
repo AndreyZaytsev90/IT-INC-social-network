@@ -1,15 +1,12 @@
 import {v1} from "uuid";
-import AvaAndrey from '../avatars/Andrey.jpg'
+/*import AvaAndrey from '../avatars/Andrey.jpg'
 import AvaOlga from '../avatars/Olga.jpg'
-import AvaPetr from '../avatars/Petr.jpg'
+import AvaPetr from '../avatars/Petr.jpg'*/
 
 
 export type StateType = {
     profilePage: MyPostsPropsType
     dialogsPage: DialogsPropsType
-    /*    posts: PostType[]
-        dialogs: DialogsType[]
-        messages: MessageType[]*/
 }
 
 export type MessagePropsType = {
@@ -65,9 +62,9 @@ export let state: StateType = {
     },
     dialogsPage: {
         dialogs: [
-            {id: v1(), name: "Andrew", avatar: "AvaAndrey"},
-            {id: v1(), name: "Olga", avatar: "AvaOlga"},
-            {id: v1(), name: "Petr", avatar: "AvaPetr"},
+            {id: v1(), name: "Andrew", avatar: ""},
+            {id: v1(), name: "Olga", avatar: ""},
+            {id: v1(), name: "Petr", avatar: ""},
             {id: v1(), name: "Sergey", avatar: ""}
         ],
         messages: [
@@ -77,4 +74,14 @@ export let state: StateType = {
             {id: v1(), message: "How do you do?"}
         ]
     }
+}
+
+export let addPost = (postMessage: string) => {
+    let newPost: PostPropsType = {
+        id: v1(),
+        message: postMessage,
+        likesCount: 2,
+    }
+
+    state.profilePage.posts.push(newPost)
 }
