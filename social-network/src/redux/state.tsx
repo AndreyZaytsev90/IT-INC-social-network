@@ -24,12 +24,14 @@ export type DialogsPropsType = {
 }
 export type PostPropsType = {
     id: string
-    message: string
+    message: any
     likesCount: number
 }
 export type MyPostsPropsType = {
     posts: Array<PostPropsType>
-    addPost?: (postMessage: string) => void
+    addPost?: () => void
+    newPostText: string
+    updateNewPostText?: (newText: string) => void
 }
 
 export let state: StateType = {
@@ -37,7 +39,8 @@ export let state: StateType = {
         posts: [
             {id: v1(), message: "Hi, how are you?", likesCount: 30},
             {id: v1(), message: "It's my first post", likesCount: 32}
-        ]
+        ],
+        newPostText: "it-incubator"
     },
     dialogsPage: {
         dialogs: [
@@ -55,13 +58,19 @@ export let state: StateType = {
     }
 }
 
-export const addPost = (postMessage: string) => {
+export const addPost = () => {
     const newPost: PostPropsType = {
         id: v1(),
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 2,
     }
 
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ""
+    rerenderEntireTree(state)
+}
+
+export const updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText
     rerenderEntireTree(state)
 }

@@ -6,15 +6,14 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Dialogs from './components/Dialogs/Dialogs';
-import {StateType} from "./redux/state";
+import {StateType, updateNewPostText} from "./redux/state";
 
 
 type AppPropsType = {
-    /*  posts: PostType[]
-      dialogs: DialogsType[]
-      messages: MessageType[]*/
     state: StateType
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    newPostText?: string
+    updateNewPostText?: (newText: string) => void
 }
 
 const App = (props: AppPropsType) => {
@@ -30,7 +29,10 @@ const App = (props: AppPropsType) => {
                                                                    messages={props.state.dialogsPage.messages}/>}/>
                         <Route path='/profile'
                                element={<Profile posts={props.state.profilePage.posts}
-                                                 addPost={props.addPost}/>}/>
+                                                 addPost={props.addPost}
+                                                 newPostText={props.state.profilePage.newPostText}
+                                                 updateNewPostText={props.updateNewPostText}
+                                                />}/>
                     </Routes>
                 </div>
             </div>
