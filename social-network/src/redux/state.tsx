@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {rerenderEntireTree} from "../render";
 /*import AvaAndrey from '../avatars/Andrey.jpg'
 import AvaOlga from '../avatars/Olga.jpg'
 import AvaPetr from '../avatars/Petr.jpg'*/
@@ -32,6 +31,10 @@ export type MyPostsPropsType = {
     addPost?: (postText: string) => void
     newPostText: string
     updateNewPostText?: (newText: string) => void
+}
+
+let rerenderEntireTree = (state: StateType) => {
+    console.log("State changed")
 }
 
 export let state: StateType = {
@@ -73,4 +76,8 @@ export const addPost = (postText: string) => {
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
     rerenderEntireTree(state)
+}
+
+export const subscribe = (observer: (state: StateType) => void) => {
+    rerenderEntireTree = observer
 }
