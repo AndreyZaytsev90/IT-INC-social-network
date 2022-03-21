@@ -15,11 +15,15 @@ const MyPosts = (props: MyPostsPropsType) => {
         /*let text = newPostElement.current?.value
         return alert(text)*/
         /*if (props.addPost && newPostElement.current) props.addPost(newPostElement.current.value)*/
-        if (props.addPost) props.addPost(props.newPostText)
+        /*if (props.addPost) props.addPost(props.newPostText)*/
+        if (props.dispatch) props.dispatch({type: "ADD-POST", postText: props.newPostText })
 
     }
     const onPostChange = (event: ChangeEvent<HTMLTextAreaElement> ) => {
-        if (props.updateNewPostText) props.updateNewPostText(event.currentTarget.value)
+
+        /*if (props.updateNewPostText) props.updateNewPostText(event.currentTarget.value)*/
+
+        if (props.dispatch) props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: event.currentTarget.value})
     }
 
     return <div className={s.postsBlock}>

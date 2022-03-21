@@ -6,10 +6,12 @@ import AvaPetr from '../avatars/Petr.jpg'*/
 export type StoreType = {
     _state: StateType
     _onChange: () => void
-    addPost: (postText: string) => void
-    updateNewPostText: (newText: string) => void
+    /*addPost: (postText: string) => void
+    updateNewPostText: (newText: string) => void*/
     subscribe: (observer: () => void) => void
     getState: () => StateType
+    dispatch: (action: ActionsTypes) => void
+
 }
 
 export type StateType = {
@@ -37,10 +39,23 @@ export type PostPropsType = {
 }
 export type MyPostsPropsType = {
     posts: Array<PostPropsType>
-    addPost?: (postText: string) => void
+    /*addPost?: (postText: string) => void*/
     newPostText: string
-    updateNewPostText?: (newText: string) => void
+    /*updateNewPostText?: (newText: string) => void*/
+    dispatch?: (action: ActionsTypes) => void
 }
+
+export type AddPostActionType = {
+    type: "ADD-POST"
+    postText: string
+}
+
+export type UpdateNewPostActionType = {
+    type: "UPDATE-NEW-POST-TEXT"
+    newText: string
+}
+
+export type ActionsTypes = AddPostActionType | UpdateNewPostActionType
 
 export const store: StoreType = {
     _state: {
@@ -69,7 +84,8 @@ export const store: StoreType = {
     _onChange() {
         console.log("State changed")
     },
-    addPost(postText: string) {
+
+    /*addPost(postText: string) {
         const newPost: PostPropsType = {
             id: v1(),
             message: postText,
@@ -78,16 +94,33 @@ export const store: StoreType = {
         this._state.profilePage.posts.push(newPost)
         this._state.profilePage.newPostText = ""
         this._onChange()
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._onChange()
-    },
+    },*/
+    /* updateNewPostText(newText: string) {
+         this._state.profilePage.newPostText = newText
+         this._onChange()
+     },*/
+
     subscribe(observer) {
         this._onChange = observer
     },
-    getState () {
+    getState() {
         return this._state
+    },
+
+    dispatch(action) {// { type: "ADD-POST" }
+        if (action.type === "ADD-POST") {
+            const newPost: PostPropsType = {
+                id: v1(),
+                message: action.postText,
+                likesCount: 2,
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ""
+            this._onChange()
+        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+            this._state.profilePage.newPostText = action.newText
+            this._onChange()
+        }
     }
 }
 

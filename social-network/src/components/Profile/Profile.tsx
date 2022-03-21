@@ -5,16 +5,16 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import {MyPostsPropsType} from "../../redux/state";
 
 
-
 const Profile = (props: MyPostsPropsType) => {
     return (
         <div>
             <ProfileInfo/>
             <MyPosts
                 posts={props.posts}
-                addPost={props.addPost}
+                /*addPost={props.addPost}*/
                 newPostText={props.newPostText}
-                updateNewPostText={props.updateNewPostText}
+                /*updateNewPostText={props.updateNewPostText}*/
+                dispatch={props.dispatch}
             />
         </div>
     )

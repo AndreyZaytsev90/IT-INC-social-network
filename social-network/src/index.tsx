@@ -8,7 +8,7 @@ import {store} from "./redux/state";
 export const onChange = () => {
     ReactDOM.render(
         <React.StrictMode>
-            <App store = {store}
+            <App store = {store} dispatch={store.dispatch.bind(store)}
                  //addPost={addPost}
                 // updateNewPostText={updateNewPostText}
             />

@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Dialogs from './components/Dialogs/Dialogs';
-import {StoreType} from "./redux/state";
+import {ActionsTypes, StoreType} from "./redux/state";
 
 
 type AppPropsType = {
@@ -15,6 +15,7 @@ type AppPropsType = {
     //newPostText?: string
     //updateNewPostText?: (newText: string) => void
     store: StoreType
+    dispatch: (action: ActionsTypes) => void
 }
 
 const App: React.FC<AppPropsType> = (props) => {
@@ -31,9 +32,11 @@ const App: React.FC<AppPropsType> = (props) => {
                                                                    messages={state.dialogsPage.messages}/>}/>
                         <Route path='/profile'
                                element={<Profile posts={state.profilePage.posts}
-                                                 addPost={props.store.addPost.bind(props.store)}
+                                                 /*addPost={props.store.dispatch.bind(props.store)}*/
                                                  newPostText={state.profilePage.newPostText}
-                                                 updateNewPostText={props.store.updateNewPostText.bind(props.store)}/>}/>
+                                                 /*updateNewPostText={props.store.dispatch.bind(props.store)}*/
+                                                 dispatch={props.store.dispatch.bind(props.store)}
+                               />}/>
                     </Routes>
                 </div>
             </div>
