@@ -21,15 +21,17 @@ export type StateType = {
 export type MessagePropsType = {
     id: string
     message: string
+
 }
 export type DialogItemPropsType = {
     name: string
     id: string
-    avatar: string
 }
 export type DialogsPropsType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
+    newMessageBody: string
+    dispatch?: (action: ActionsTypes) => void
 
 }
 export type PostPropsType = {
@@ -45,17 +47,33 @@ export type MyPostsPropsType = {
     dispatch?: (action: ActionsTypes) => void
 }
 
-export type AddPostActionType = {
-    type: "ADD-POST"
-    postText: string
+export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostAC> | ReturnType<typeof addMessageAC> | ReturnType<typeof updateNewMessageAC>
+
+export const addPostAC = (newPostText: string) => {
+    return {
+        type: "ADD-POST",
+        postText: newPostText
+    } as const
+}
+export const updateNewPostAC = (newText: string) => {
+    return {
+        type: "UPDATE-NEW-POST-TEXT",
+        newText: newText
+    } as const
 }
 
-export type UpdateNewPostActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
+export const addMessageAC = (message: string) => {
+    return {
+        type: "ADD-MESSAGE",
+        messageText: message
+    } as const
 }
-
-export type ActionsTypes = AddPostActionType | UpdateNewPostActionType
+export const updateNewMessageAC = (body: string) => {
+    return {
+        type: "UPDATE-NEW-MESSAGE-BODY",
+        body: body
+    } as const
+}
 
 export const store: StoreType = {
     _state: {
@@ -68,17 +86,19 @@ export const store: StoreType = {
         },
         dialogsPage: {
             dialogs: [
-                {id: v1(), name: "Andrew", avatar: ""},
-                {id: v1(), name: "Olga", avatar: ""},
-                {id: v1(), name: "Petr", avatar: ""},
-                {id: v1(), name: "Sergey", avatar: ""}
+                {id: v1(), name: "Andrew"},
+                {id: v1(), name: "Olga"},
+                {id: v1(), name: "Petr"},
+                {id: v1(), name: "Sergey"}
             ],
             messages: [
                 {id: v1(), message: "Hi"},
                 {id: v1(), message: "How is your it-kamasutra?"},
                 {id: v1(), message: "Yo"},
                 {id: v1(), message: "How do you do?"}
-            ]
+            ],
+            newMessageBody: ""
+
         }
     },
     _onChange() {
@@ -119,6 +139,18 @@ export const store: StoreType = {
             this._onChange()
         } else if (action.type === "UPDATE-NEW-POST-TEXT") {
             this._state.profilePage.newPostText = action.newText
+            this._onChange()
+        }
+         else if (action.type === "ADD-MESSAGE") {
+            const newMessage: MessagePropsType = {
+                id: v1(),
+                message: action.messageText
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageBody = ""
+            this._onChange()
+        } else if (action.type === "UPDATE-NEW-MESSAGE-BODY") {
+            this._state.dialogsPage.newMessageBody = action.body
             this._onChange()
         }
     }

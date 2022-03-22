@@ -29,12 +29,15 @@ const App: React.FC<AppPropsType> = (props) => {
                 <div className={"app-wrapper-content"}>
                     <Routes>
                         <Route path='/dialogs/*' element={<Dialogs dialogs={state.dialogsPage.dialogs}
-                                                                   messages={state.dialogsPage.messages}/>}/>
+                                                                   messages={state.dialogsPage.messages}
+                                                                   newMessageBody={state.dialogsPage.newMessageBody}
+                                                                   dispatch={props.store.dispatch.bind(props.store)}
+                        />}/>
                         <Route path='/profile'
                                element={<Profile posts={state.profilePage.posts}
-                                                 /*addPost={props.store.dispatch.bind(props.store)}*/
+                                   /*addPost={props.store.dispatch.bind(props.store)}*/
                                                  newPostText={state.profilePage.newPostText}
-                                                 /*updateNewPostText={props.store.dispatch.bind(props.store)}*/
+                                   /*updateNewPostText={props.store.dispatch.bind(props.store)}*/
                                                  dispatch={props.store.dispatch.bind(props.store)}
                                />}/>
                     </Routes>
