@@ -1,7 +1,6 @@
 import {v1} from "uuid";
-/*import AvaAndrey from '../avatars/Andrey.jpg'
-import AvaOlga from '../avatars/Olga.jpg'
-import AvaPetr from '../avatars/Petr.jpg'*/
+import profileReducer, {addPostAC, updateNewPostAC} from "./profile-reducer";
+import dialogsReducer, {addMessageAC, updateNewMessageAC} from "./dialogs-reducer";
 
 export type StoreType = {
     _state: StateType
@@ -17,6 +16,7 @@ export type StoreType = {
 export type StateType = {
     profilePage: MyPostsPropsType
     dialogsPage: DialogsPropsType
+    /*sidebar: SidebarPropsType*/
 }
 export type MessagePropsType = {
     id: string
@@ -47,33 +47,12 @@ export type MyPostsPropsType = {
     dispatch?: (action: ActionsTypes) => void
 }
 
-export type ActionsTypes = ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostAC> | ReturnType<typeof addMessageAC> | ReturnType<typeof updateNewMessageAC>
+export type ActionsTypes =
+    ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateNewPostAC> |
+    ReturnType<typeof addMessageAC> |
+    ReturnType<typeof updateNewMessageAC>
 
-export const addPostAC = (newPostText: string) => {
-    return {
-        type: "ADD-POST",
-        postText: newPostText
-    } as const
-}
-export const updateNewPostAC = (newText: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: newText
-    } as const
-}
-
-export const addMessageAC = (message: string) => {
-    return {
-        type: "ADD-MESSAGE",
-        messageText: message
-    } as const
-}
-export const updateNewMessageAC = (body: string) => {
-    return {
-        type: "UPDATE-NEW-MESSAGE-BODY",
-        body: body
-    } as const
-}
 
 export const store: StoreType = {
     _state: {
@@ -99,7 +78,8 @@ export const store: StoreType = {
             ],
             newMessageBody: ""
 
-        }
+        },
+        /*sidebar: {}*/
     },
     _onChange() {
         console.log("State changed")
@@ -128,31 +108,11 @@ export const store: StoreType = {
     },
 
     dispatch(action) {// { type: "ADD-POST" }
-        if (action.type === "ADD-POST") {
-            const newPost: PostPropsType = {
-                id: v1(),
-                message: action.postText,
-                likesCount: 2,
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ""
-            this._onChange()
-        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-            this._state.profilePage.newPostText = action.newText
-            this._onChange()
-        }
-         else if (action.type === "ADD-MESSAGE") {
-            const newMessage: MessagePropsType = {
-                id: v1(),
-                message: action.messageText
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageBody = ""
-            this._onChange()
-        } else if (action.type === "UPDATE-NEW-MESSAGE-BODY") {
-            this._state.dialogsPage.newMessageBody = action.body
-            this._onChange()
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        /*this._state.sidebar = sidebarReducer(this._state.sidebar, action)*/
+
+        this._onChange()
     }
 }
 
