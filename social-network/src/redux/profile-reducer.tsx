@@ -1,8 +1,23 @@
 import React from 'react';
-import {ActionsTypes, MyPostsPropsType, PostPropsType} from "./state";
+import {ActionsTypes, MyPostsPropsType, PostPropsType} from "./store";
 import {v1} from "uuid";
 
-const profileReducer = (state: MyPostsPropsType, action: ActionsTypes) => {
+type InitialStateType = {
+    posts: Array<PostPropsType>
+    newPostText: string
+}
+
+
+let initialState: InitialStateType = {
+    posts: [
+    {id: v1(), message: "Hi, how are you?", likesCount: 30},
+    {id: v1(), message: "It's my first post", likesCount: 32}
+],
+    newPostText: "it-incubator",
+}
+
+
+const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
 
     switch (action.type) {
         case "ADD-POST":

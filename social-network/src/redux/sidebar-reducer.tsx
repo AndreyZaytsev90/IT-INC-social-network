@@ -1,7 +1,9 @@
 import React from 'react';
-import {ActionsTypes} from "./state";
+import {ActionsTypes} from "./store";
 
-const sidebarReducer = (state: any, action: ActionsTypes) => {
+let initialState = {}
+
+const sidebarReducer = (state: any = initialState, action: ActionsTypes) => {
     return state
 };
 

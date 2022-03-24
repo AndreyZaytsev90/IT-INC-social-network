@@ -31,8 +31,6 @@ export type DialogsPropsType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
     newMessageBody: string
-    dispatch?: (action: ActionsTypes) => void
-
 }
 export type PostPropsType = {
     id: string
@@ -41,10 +39,7 @@ export type PostPropsType = {
 }
 export type MyPostsPropsType = {
     posts: Array<PostPropsType>
-    /*addPost?: (postText: string) => void*/
     newPostText: string
-    /*updateNewPostText?: (newText: string) => void*/
-    dispatch?: (action: ActionsTypes) => void
 }
 
 export type ActionsTypes =

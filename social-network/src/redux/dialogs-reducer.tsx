@@ -1,8 +1,25 @@
 import React from 'react';
-import {ActionsTypes, DialogsPropsType, MessagePropsType} from "./state";
+import {ActionsTypes, DialogsPropsType, MessagePropsType} from "./store";
 import {v1} from "uuid";
 
-const dialogsReducer = (state: DialogsPropsType, action: ActionsTypes) => {
+
+let initialState = {
+    dialogs: [
+        {id: v1(), name: "Andrew"},
+        {id: v1(), name: "Olga"},
+        {id: v1(), name: "Petr"},
+        {id: v1(), name: "Sergey"}
+    ],
+    messages: [
+        {id: v1(), message: "Hi"},
+        {id: v1(), message: "How is your it-kamasutra?"},
+        {id: v1(), message: "Yo"},
+        {id: v1(), message: "How do you do?"}
+    ],
+    newMessageBody: ""
+}
+
+const dialogsReducer = (state: DialogsPropsType = initialState, action: ActionsTypes) => {
 
     switch (action.type) {
         case "ADD-MESSAGE":
