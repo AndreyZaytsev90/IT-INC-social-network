@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {MyPostsPropsType, PostPropsType} from "../../../redux/store";
@@ -12,26 +12,22 @@ type MyPostPropsType = {
     updateNewPostText: (newText: string) => void
 }
 
-
 const MyPosts = (props: MyPostPropsType) => {
 
-    let postsElement = props.posts.map((post) => <Post message={post.message} likesCount={post.likesCount} id={post.id}/>)
-
-    /*let newPostElement = useRef<HTMLTextAreaElement | null>(null)*/
+    let postsElement = props.posts.map((post) =>
+        <Post
+            message={post.message}
+            likesCount={post.likesCount}
+            id={post.id}/>)
 
     const onClickAddPostHandler = () => {
         /*let text = newPostElement.current?.value
         return alert(text)*/
         /*if (props.addPost && newPostElement.current) props.addPost(newPostElement.current.value)*/
-        if (props.addPost) props.addPost(props.newPostText)
-        /*if (props.dispatch) props.dispatch(addPostAC(props.newPostText))*/
-
+        props.addPost(props.newPostText)
     }
-    const onPostChange = (event: ChangeEvent<HTMLTextAreaElement> ) => {
-
-        if (props.updateNewPostText) props.updateNewPostText(event.currentTarget.value)
-
-        /*if (props.dispatch) props.dispatch(updateNewPostAC(event.currentTarget.value))*/
+    const onPostChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(event.currentTarget.value)
     }
 
     return <div className={s.postsBlock}>

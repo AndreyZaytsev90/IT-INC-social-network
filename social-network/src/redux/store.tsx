@@ -5,8 +5,6 @@ import dialogsReducer, {addMessageAC, updateNewMessageAC} from "./dialogs-reduce
 export type StoreType = {
     _state: StateType
     _onChange: () => void
-    /*addPost: (postText: string) => void
-    updateNewPostText: (newText: string) => void*/
     subscribe: (observer: () => void) => void
     getState: () => StateType
     dispatch: (action: ActionsTypes) => void

@@ -10,7 +10,8 @@ type DialogPropsType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
     newMessageBody: string
-    dispatch: (action: ActionsTypes) => void
+    sendMessage: (newMessageBody: string) => void
+    updateNewMessageBody: (body: string) => void
 }
 
 const Dialogs = (props: DialogPropsType) => {
@@ -50,28 +51,23 @@ const Dialogs = (props: DialogPropsType) => {
             id={message.id}
         />)
 
-    const onClickAddPostHandler = () => {
+    const onClickSendMessageHandler = () => {
         /*let text = newPostElement.current?.value
         return alert(text)*/
         /*if (props.addPost && newPostElement.current) props.addPost(newPostElement.current.value)*/
         /*if (props.addPost) props.addPost(props.newPostText)*/
-        if (props.dispatch) props.dispatch(addMessageAC(props.newMessageBody))
-
+        props.sendMessage(props.newMessageBody)
     }
-    const onMessageChange = (event: ChangeEvent<HTMLTextAreaElement> ) => {
 
+    const onMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         /*if (props.updateNewPostText) props.updateNewPostText(event.currentTarget.value)*/
-
-        if (props.dispatch) props.dispatch(updateNewMessageAC(event.currentTarget.value))
+        props.updateNewMessageBody(event.currentTarget.value)
     }
-
-
 
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                {/*   <img alt="Andrey" src="../../avatars/Olga.jpg"/>*/}
                 {dialogsElements}
             </div>
             <div className={s.messages}>
@@ -81,7 +77,9 @@ const Dialogs = (props: DialogPropsType) => {
                         <div><textarea value={props.newMessageBody}
                                        onChange={onMessageChange}
                                        placeholder="Enter your message"/></div>
-                        <div><button onClick={onClickAddPostHandler}>Send</button></div>
+                        <div>
+                            <button onClick={onClickSendMessageHandler}>Send</button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -14,24 +14,8 @@ type MyPostContainerPropsType = {
 
 const MyPostsContainer = (props: MyPostContainerPropsType) => {
 
-    /*let postsElement = props.posts.map((post) => <Post message={post.message} likesCount={post.likesCount} id={post.id}/>)*/
-
-    /*let newPostElement = useRef<HTMLTextAreaElement | null>(null)*/
-
-    const onClickAddPostHandler = () => {
-        /*let text = newPostElement.current?.value
-        return alert(text)*/
-        /*if (props.addPost && newPostElement.current) props.addPost(newPostElement.current.value)*/
-        /*if (props.addPost) props.addPost(props.newPostText)*/
-        if (props.dispatch && props.newPostText) props.dispatch(addPostAC(props.newPostText))
-
-    }
-    const onPostChange = (value: string ) => {
-
-        /*if (props.updateNewPostText) props.updateNewPostText(event.currentTarget.value)*/
-
-        if (props.dispatch) props.dispatch(updateNewPostAC(value))
-    }
+    const onClickAddPostHandler = () => props.dispatch(addPostAC(props.newPostText))
+    const onPostChange = (newText: string) => props.dispatch(updateNewPostAC(newText))
 
     return (
         <MyPosts posts={props.posts}
