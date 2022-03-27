@@ -9,7 +9,6 @@ import MyPostsContainer from "./My posts/MyPostsContainer";
 type ProfilePropsType = {
     posts: Array<PostPropsType>
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
 }
 
 
@@ -17,11 +16,7 @@ const Profile = (props: ProfilePropsType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer
-                posts={props.posts}
-                newPostText={props.newPostText}
-                dispatch={props.dispatch}
-            />
+            <MyPostsContainer posts={[]} newPostText={''}/>
         </div>
     )
 }

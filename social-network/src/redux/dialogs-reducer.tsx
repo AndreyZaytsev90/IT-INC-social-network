@@ -1,9 +1,15 @@
 import React from 'react';
-import {ActionsTypes, DialogsPropsType, MessagePropsType} from "./store";
+import {ActionsTypes, DialogItemPropsType, DialogsPropsType, MessagePropsType, PostPropsType} from "./store";
 import {v1} from "uuid";
 
+export type InitialDialogsStateType = {
+    dialogs: Array<DialogItemPropsType>
+    messages: Array<MessagePropsType>
+    newMessageBody: string
+}
 
-let initialState = {
+
+const initialState: InitialDialogsStateType = {
     dialogs: [
         {id: v1(), name: "Andrew"},
         {id: v1(), name: "Olga"},
@@ -19,7 +25,7 @@ let initialState = {
     newMessageBody: ""
 }
 
-const dialogsReducer = (state: DialogsPropsType = initialState, action: ActionsTypes) => {
+const dialogsReducer = (state: InitialDialogsStateType = initialState, action: ActionsTypes): InitialDialogsStateType=> {
 
     switch (action.type) {
         case "ADD-MESSAGE":

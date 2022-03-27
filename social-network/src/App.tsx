@@ -11,12 +11,11 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
     store: StoreType
-    dispatch: (action: ActionsTypes) => void
 }
 
 const App: React.FC<AppPropsType> = (props) => {
 
-    const state = props.store.getState()
+   /* const state = props.store.getState()*/
 
     return (
         <BrowserRouter>
@@ -25,14 +24,8 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Navbar/>
                 <div className={"app-wrapper-content"}>
                     <Routes>
-                        <Route path='/dialogs/*' element={<DialogsContainer dialogs={state.dialogsPage.dialogs}
-                                                                            messages={state.dialogsPage.messages}
-                                                                            newMessageBody={state.dialogsPage.newMessageBody}
-                                                                            dispatch={props.store.dispatch.bind(props.store)}/>}/>
-                        <Route path='/profile'
-                               element={<Profile posts={state.profilePage.posts}
-                                                 newPostText={state.profilePage.newPostText}
-                                                 dispatch={props.store.dispatch.bind(props.store)}/>}/>
+                        <Route path='/dialogs/*' element={ <DialogsContainer dialogs={[]} messages={[]} newMessageBody={''}/> } />
+                        <Route path='/profile' element={ <Profile posts={[]} newPostText={''}/> } />
                     </Routes>
                 </div>
             </div>
