@@ -1,10 +1,10 @@
-import React, {ChangeEvent} from "react";
-import {ActionsTypes, DialogItemPropsType, MessagePropsType, StateType} from "../../redux/store";
+import React from "react";
 import "../../index.css"
 import {addMessageAC, InitialDialogsStateType, updateNewMessageAC} from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
-import {RootReducerType, store} from "../../redux/redux-store";
+import {RootReducerType} from "../../redux/redux-store";
 import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
 /*type DialogsContainerPropsType = {
     dialogs: Array<DialogItemPropsType>
@@ -36,12 +36,19 @@ type MapStatePropsType = {
     dialogsPage: InitialDialogsStateType
 }
 
+type MapDispatchPropsType = {
+    updateNewMessageBody: (body: string) => void
+    sendMessage: (newMessageBody: string) => void
+}
+
+export type DialogPropsType = MapStatePropsType & MapDispatchPropsType
+
 const mapStateToProps = (state: RootReducerType): MapStatePropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
 }
-const mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
+const mapDispatchToProps = (dispatch: Dispatch) : MapDispatchPropsType => {
     return {
         updateNewMessageBody: (body: string) => {
             dispatch(updateNewMessageAC(body))

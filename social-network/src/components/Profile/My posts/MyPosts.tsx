@@ -1,20 +1,19 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {MyPostsPropsType, PostPropsType} from "../../../redux/store";
 import '../../../index.css'
-import {addPostAC, updateNewPostAC} from "../../../redux/profile-reducer";
+import {MyPostPropsType} from "./MyPostsContainer";
 
-type MyPostPropsType = {
+/*type MyPostPropsType = {
     posts: Array<PostPropsType>
     newPostText: string
     addPost: (postText: string) => void
     updateNewPostText: (newText: string) => void
-}
+}*/
 
 const MyPosts = (props: MyPostPropsType) => {
 
-    let postsElement = props.posts.map((post) =>
+    let postsElement = props.profilePage.posts.map((post) =>
         <Post
             message={post.message}
             likesCount={post.likesCount}
@@ -24,7 +23,7 @@ const MyPosts = (props: MyPostPropsType) => {
         /*let text = newPostElement.current?.value
         return alert(text)*/
         /*if (props.addPost && newPostElement.current) props.addPost(newPostElement.current.value)*/
-        props.addPost(props.newPostText)
+        props.addPost(props.profilePage.newPostText)
     }
     const onPostChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewPostText(event.currentTarget.value)
@@ -36,7 +35,7 @@ const MyPosts = (props: MyPostPropsType) => {
             <div>
                 <div><textarea
                     onChange={onPostChange}
-                    value={props.newPostText}
+                    value={props.profilePage.newPostText}
                     placeholder="Enter your post">text</textarea></div>
                 <div>
                     <button onClick={onClickAddPostHandler}>Add post</button>

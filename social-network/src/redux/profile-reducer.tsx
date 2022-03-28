@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActionsTypes, MyPostsPropsType, PostPropsType} from "./store";
+import {ActionsTypes, PostPropsType} from "./store";
 import {v1} from "uuid";
 
 export type InitialProfileStateType = {
@@ -10,9 +10,9 @@ export type InitialProfileStateType = {
 
 const initialState: InitialProfileStateType = {
     posts: [
-    {id: v1(), message: "Hi, how are you?", likesCount: 30},
-    {id: v1(), message: "It's my first post", likesCount: 32}
-],
+        {id: v1(), message: "Hi, how are you?", likesCount: 30},
+        {id: v1(), message: "It's my first post", likesCount: 32}
+    ],
     newPostText: "it-incubator",
 }
 

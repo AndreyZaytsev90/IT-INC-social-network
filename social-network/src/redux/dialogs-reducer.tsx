@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActionsTypes, DialogItemPropsType, DialogsPropsType, MessagePropsType, PostPropsType} from "./store";
+import {ActionsTypes, DialogItemPropsType, MessagePropsType} from "./store";
 import {v1} from "uuid";
 
 export type InitialDialogsStateType = {
@@ -7,7 +7,6 @@ export type InitialDialogsStateType = {
     messages: Array<MessagePropsType>
     newMessageBody: string
 }
-
 
 const initialState: InitialDialogsStateType = {
     dialogs: [

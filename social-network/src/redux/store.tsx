@@ -46,7 +46,6 @@ export type ActionsTypes =
     ReturnType<typeof addMessageAC> |
     ReturnType<typeof updateNewMessageAC>
 
-
 export const store: StoreType = {
     _state: {
         profilePage: {

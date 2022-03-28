@@ -1,7 +1,6 @@
 import {combineReducers, createStore} from "redux";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
-import {StoreType} from "./store";
 
 export const rootReducer = combineReducers({   // объект с редьюсерами
     profilePage: profileReducer,
@@ -10,5 +9,7 @@ export const rootReducer = combineReducers({   // объект с редьюсе
 })
 
 export type RootReducerType = ReturnType<typeof rootReducer>
+
+//window.store = store
 
 export const store = createStore(rootReducer)

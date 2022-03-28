@@ -2,7 +2,9 @@ import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import {Provider} from "react-redux";
 import {store} from "./redux/redux-store";
+
 /*import {store} from "./redux/store";*/
 
 
@@ -10,10 +12,9 @@ export const onChange = () => {
 
     ReactDOM.render(
         <React.StrictMode>
-            <App store = {store} dispatch={store.dispatch.bind(store)}
-                 //addPost={addPost}
-                // updateNewPostText={updateNewPostText}
-            />
+            <Provider store={store}>
+                <App/>
+            </Provider>
         </React.StrictMode>,
         document.getElementById('root')
     );
