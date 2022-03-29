@@ -1,8 +1,9 @@
 import {v1} from "uuid";
 import profileReducer, {addPostAC, updateNewPostAC} from "./profile-reducer";
 import dialogsReducer, {addMessageAC, updateNewMessageAC} from "./dialogs-reducer";
+import {followAC, setUsersAC, unfollowAC} from "./users-reducer";
 
-export type StoreType = {
+type StoreType = {
     _state: StateType
     _onChange: () => void
     subscribe: (observer: () => void) => void
@@ -35,28 +36,31 @@ export type PostPropsType = {
     message: string
     likesCount: number
 }
+export type MyPostsPropsType = {
+    posts: Array<PostPropsType>
+    newPostText: string
+}
 
 export type UsersPropsType = {
     id: string,
     followed: boolean
     fullName: string,
     status: string,
-    location: {
-            city: string,
-            country: string
-    }
+    location: UsersLocation
 }
-
-export type MyPostsPropsType = {
-    posts: Array<PostPropsType>
-    newPostText: string
+export type UsersLocation = {
+    city: string,
+    country: string
 }
 
 export type ActionsTypes =
     ReturnType<typeof addPostAC> |
     ReturnType<typeof updateNewPostAC> |
     ReturnType<typeof addMessageAC> |
-    ReturnType<typeof updateNewMessageAC>
+    ReturnType<typeof updateNewMessageAC> |
+    ReturnType<typeof followAC> |
+    ReturnType<typeof unfollowAC> |
+    ReturnType<typeof setUsersAC>
 
 export const store: StoreType = {
     _state: {

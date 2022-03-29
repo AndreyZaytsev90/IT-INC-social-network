@@ -1,9 +1,10 @@
 import React from 'react';
+import {UsersPropsType} from "./UsersContainer";
 
-const Users = () => {
+const Users = (props: UsersPropsType) => {
     return (
         <div>
-            USERS WILL BE HERE
+            {props.usersPage.users}
         </div>
     );
 };

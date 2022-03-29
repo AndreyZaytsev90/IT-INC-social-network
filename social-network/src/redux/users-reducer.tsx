@@ -3,11 +3,11 @@ import {ActionsTypes, UsersPropsType} from "./store";
 import {v1} from "uuid";
 
 
-export type InitialProfileStateType = {
+export type InitialUsersStateType = {
     users: Array<UsersPropsType>
 }
 
-const initialState: InitialProfileStateType = {
+const initialState: InitialUsersStateType = {
     users: [
         {id: v1(), followed: true, fullName: "Andrey", status: "I am a programmer", location: {city: "Moscow", country: "Russia"}},
         {id: v1(), followed: true, fullName: "Olga", status: "I am a head of quality", location: {city: "Aleksin", country: "Russia"}},
@@ -16,26 +16,47 @@ const initialState: InitialProfileStateType = {
     ]
 }
 
-const usersReducer = (state: InitialProfileStateType = initialState, action: ActionsTypes): InitialProfileStateType => {
+const usersReducer = (state: InitialUsersStateType = initialState, action: ActionsTypes): InitialUsersStateType => {
 
 
     switch (action.type) {
+        case "FOLLOW":
+            return {
+                ...state,
+                users: state.users.map(users => users.id === action.userId ? {...users, followed: true}: users)
+            }
+        case "UNFOLLOW":
+            return {
+                ...state,
+                users: state.users.map(users => users.id === action.userId ? {...users, followed: false}: users)
+            }
+        case "SET-USERS":
+            return {
+                ...state,
+                users: [...state.users, ...action.users]
+            }
+
         default:
             return state
     }
 };
 
-export const addPostAC = (newPostText: string) => {
+export const followAC = (userId: string) => {
     return {
-        type: "ADD-POST",
-        newPostText: newPostText
+        type: "FOLLOW",
+        userId: v1()
     } as const
 }
-export const updateNewPostAC = (newText: string) => {
+export const unfollowAC = (userId: string) => {
     return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: newText
+        type: "UNFOLLOW",
+        userId: v1()
     } as const
 }
-
+export const setUsersAC = (users: Array<UsersPropsType>) => {
+    return {
+        type: "SET-USERS",
+        users: users
+    } as const
+}
 export default usersReducer;
