@@ -32,19 +32,25 @@ const dialogsReducer = (state: InitialDialogsStateType = initialState, action: A
                 id: v1(),
                 message: state.newMessageBody
             }
-            state.messages.push(newMessage)
-            state.newMessageBody = ""
-            /*_onChange()*/
-            break;
+            return {
+                ...state,
+                newMessageBody: "",
+                messages: [...state.messages, newMessage]
+            }
+            //const stateCopy = {...state}
+            //stateCopy.messages = [...state.messages]
+            //stateCopy.messages.push(newMessage)
+            //stateCopy.newMessageBody = ""
+
         case "UPDATE-NEW-MESSAGE-BODY":
-            state.newMessageBody = action.body
-            /*_onChange()*/
-            break;
+            //const stateCopy = {...state}
+            return  {
+                ...state,
+                newMessageBody: action.body
+            }
         default:
             return state
     }
-
-    return state
 };
 
 export const addMessageAC = (message: string) => {

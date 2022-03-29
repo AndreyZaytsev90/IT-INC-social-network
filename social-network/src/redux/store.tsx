@@ -35,6 +35,18 @@ export type PostPropsType = {
     message: string
     likesCount: number
 }
+
+export type UsersPropsType = {
+    id: string,
+    followed: boolean
+    fullName: string,
+    status: string,
+    location: {
+            city: string,
+            country: string
+    }
+}
+
 export type MyPostsPropsType = {
     posts: Array<PostPropsType>
     newPostText: string

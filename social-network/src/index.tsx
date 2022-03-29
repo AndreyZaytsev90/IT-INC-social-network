@@ -5,9 +5,6 @@ import App from './App';
 import {Provider} from "react-redux";
 import {store} from "./redux/redux-store";
 
-/*import {store} from "./redux/store";*/
-
-
 export const onChange = () => {
 
     ReactDOM.render(
@@ -20,8 +17,11 @@ export const onChange = () => {
     );
 }
 
-store.subscribe(onChange)
+//store.subscribe(onChange) отменили подписку
+
 onChange()
+
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

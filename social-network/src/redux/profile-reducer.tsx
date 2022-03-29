@@ -18,6 +18,11 @@ const initialState: InitialProfileStateType = {
 
 const profileReducer = (state: InitialProfileStateType = initialState, action: ActionsTypes): InitialProfileStateType => {
 
+    /*const stateCopy = {
+        ...state,
+        posts: [...state.posts]
+    }*/
+
     switch (action.type) {
         case "ADD-POST":
             const newPost: PostPropsType = {
@@ -25,19 +30,23 @@ const profileReducer = (state: InitialProfileStateType = initialState, action: A
                 message: state.newPostText,
                 likesCount: 2,
             }
-            state.posts.push(newPost)
-            state.newPostText = ""
-            /*_onChange()*/
-            break;
+            /*const stateCopy = {...state}
+            stateCopy.posts = [...state.posts]*/
+            return {
+                ...state,
+                newPostText: "",
+                posts: [...state.posts, newPost]
+            }
+
         case "UPDATE-NEW-POST-TEXT":
-            state.newPostText = action.newText
-            /*_onChange()*/
-            break;
+            /*const stateCopy = {...state}*/
+            return {
+                ...state,
+                newPostText: action.newText
+            }
         default:
             return state
     }
-
-    return state
 };
 
 export const addPostAC = (newPostText: string) => {
