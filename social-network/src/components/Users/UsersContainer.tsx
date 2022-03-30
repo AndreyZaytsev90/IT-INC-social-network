@@ -2,21 +2,21 @@ import React from 'react';
 import Users from "./Users";
 import {connect} from "react-redux";
 import {RootReducerType} from "../../redux/redux-store";
-import {followAC, InitialUsersStateType, setUsersAC, unfollowAC} from "../../redux/users-reducer";
+import {followAC, setUsersAC, unfollowAC} from "../../redux/users-reducer";
 import {Dispatch} from "redux";
+import {UsersPropsType} from "../../redux/store";
 
 
-type MapStatePropsType = {
-    users: InitialUsersStateType
+export type MapStatePropsType = {
+    users: Array<UsersPropsType>
 }
 
-type MapDispatchPropsType = {
+export type MapDispatchPropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     setUsers: (users: Array<UsersPropsType>) => void
 }
-
-export type UsersPropsType = MapStatePropsType & MapDispatchPropsType
+export type InitialUsersStateType = MapStatePropsType & MapDispatchPropsType
 
 const mapStateToProps = (state: RootReducerType): MapStatePropsType => {
     return {
