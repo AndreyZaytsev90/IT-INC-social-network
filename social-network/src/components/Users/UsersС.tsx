@@ -7,18 +7,17 @@ import axios from "axios";
 
 export class UsersC extends React.Component<InitialUsersStateType> {
 
-    getUsers = () => {
-        if (this.props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users")
-                .then(response => {
-                    this.props.setUsers(response.data.items)
-                })
-        }
+    constructor(props: InitialUsersStateType | Readonly<InitialUsersStateType>) {
+        super(props)
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
     }
 
     render = () => {
         return <div>
-            <button onClick={this.getUsers}>Дай стэйт сука!</button>
+            {/*<button onClick={this.getUsers}>Дай стэйт сука!</button>*/}
             {
                 this.props.users.map(user => <div key={user.id} className={styles.all}>
                 <span>
