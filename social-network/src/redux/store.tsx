@@ -43,15 +43,19 @@ export type MyPostsPropsType = {
 
 export type UsersPropsType = {
     id: string,
-    photoUrl: string,
+    photos: PhotosPropsType
     followed: boolean,
-    fullName: string,
+    name: string,
     status: string,
     location: UsersLocation
 }
 export type UsersLocation = {
     city: string,
     country: string
+}
+type PhotosPropsType = {
+    small: string,
+    large: string
 }
 
 export type ActionsTypes =

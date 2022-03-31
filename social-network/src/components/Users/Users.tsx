@@ -2,50 +2,28 @@ import React from 'react';
 import styles from "./users.module.css"
 import {InitialUsersStateType} from "./UsersContainer";
 import {v1} from "uuid";
+import axios from "axios";
+import userPhoto from "../../avatars/images2.png"
 
 const Users = (props: InitialUsersStateType) => {
 
-    if (props.users.length === 0) {
-        props.setUsers([{
-            id: v1(),
-            photoUrl: "https://i.ibb.co/6Z9JcZr/003.jpg",
-            followed: true,
-            fullName: "Andrey",
-            status: "I am a programmer",
-            location: {city: "Moscow", country: "Russia"}
-        },
-            {
-                id: v1(),
-                photoUrl: "https://i.ibb.co/DbLb2Bg/002.jpg",
-                followed: true,
-                fullName: "Olga",
-                status: "I am a head of quality",
-                location: {city: "Aleksin", country: "Russia"}
-            },
-            {
-                id: v1(),
-                photoUrl: "https://i.ibb.co/Bw7pYVg/001.jpg",
-                followed: true,
-                fullName: "Petr",
-                status: "I am a preschool child",
-                location: {city: "Moscow", country: "Russia"}
-            },
-            {
-                id: v1(),
-                photoUrl: "https://i.ibb.co/YpXxHKc/P8110099.jpg",
-                followed: false,
-                fullName: "Sergey",
-                status: "I am a student",
-                location: {city: "Moscow", country: "Russia"}
-            },])
-    }
 
-    return (
-        <div>
-            {props.users.map(user => <div key={user.id} className={styles.all}>
+        if (props.users.length === 0) {
+            axios.get("https://social-network.samuraijs.com/api/1.0/users")
+                .then(response => {
+                    props.setUsers(response.data.items)
+                })
+        }
+
+
+    return <div>
+        {/*<button onClick={getUsers}>Дай стэйт сука!</button>*/}
+        {
+            props.users.map(user => <div key={user.id} className={styles.all}>
                 <span>
                     <div>
-                        <img src={user.photoUrl} alt="avatar" className={styles.userAvatar}/>
+                        <img src={user.photos.small ? user.photos.small : userPhoto} alt="avatar"
+                             className={styles.userAvatar}/>
                     </div>
                     <div>
                         {user.followed
@@ -59,18 +37,17 @@ const Users = (props: InitialUsersStateType) => {
                 </span>
                 <span>
                     <span>
-                        <div>{user.fullName}</div>
+                        <div>{user.name}</div>
                         <div>{user.status}</div>
                     </span>
                     <span>
-                        <div>{user.location.country}</div>
-                        <div>{user.location.city}</div>
+                        <div>{"user.location.country"}</div>
+                        <div>{"user.location.city"}</div>
                     </span>
                 </span>
             </div>)
-            }
-        </div>
-    );
-};
+        }
+    </div>
+}
 
 export default Users
