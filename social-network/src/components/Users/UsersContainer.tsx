@@ -5,6 +5,7 @@ import {RootReducerType} from "../../redux/redux-store";
 import {followAC, setUsersAC, unfollowAC} from "../../redux/users-reducer";
 import {Dispatch} from "redux";
 import {UsersPropsType} from "../../redux/store";
+import {UsersC} from "./UsersС";
 
 
 export type MapStatePropsType = {
@@ -37,4 +38,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersC)
