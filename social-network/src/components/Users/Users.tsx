@@ -16,6 +16,7 @@ const Users = (props: InitialUsersStateType) => {
 
     return <div>
         {/*<button onClick={getUsers}>Дай стэйт сука!</button>*/}
+
         {
             props.users.map(user => <div key={user.id} className={styles.all}>
                 <span>

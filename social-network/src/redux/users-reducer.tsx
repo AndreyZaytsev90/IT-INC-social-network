@@ -5,11 +5,13 @@ import {v1} from "uuid";
 
 export type InitialUsersStateType = {
     users: Array<UsersPropsType>
+    pageSize: number
+    totalCount: number
+    currentPage: number
 }
 
 const initialState: InitialUsersStateType = {
-    users: [
-        /*{
+    users: [/*{
             id: v1(),
             photoUrl: "https://i.ibb.co/6Z9JcZr/003.jpg",
             followed: true,
@@ -40,8 +42,10 @@ const initialState: InitialUsersStateType = {
             fullName: "Sergey",
             status: "I am a student",
             location: {city: "Moscow", country: "Russia"}
-        },*/
-    ]
+        },*/],
+    pageSize: 5,
+    totalCount: 0,
+    currentPage: 2
 }
 
 const usersReducer = (state: InitialUsersStateType = initialState, action: ActionsTypes): InitialUsersStateType => {
@@ -63,11 +67,22 @@ const usersReducer = (state: InitialUsersStateType = initialState, action: Actio
                 ...state,
                 users: [/*...state.users,*/ ...action.users]
             }
+        case "SET-CURRENT-PAGE":
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+        case "SET-TOTAL-COUNT":
+            return {
+                ...state,
+                totalCount: action.totalCount
+            }
 
         default:
             return state
     }
 };
+
 
 export const followAC = (userId: string) => {
     return {
@@ -75,16 +90,35 @@ export const followAC = (userId: string) => {
         userId: userId
     } as const
 }
+
 export const unfollowAC = (userId: string) => {
     return {
         type: "UNFOLLOW",
         userId: userId
     } as const
 }
+
 export const setUsersAC = (users: Array<UsersPropsType>) => {
     return {
         type: "SET-USERS",
         users: users
     } as const
 }
+
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        currentPage: currentPage
+    } as const
+}
+
+export const setTotalCountAC = (totalCount: number) => {
+    return {
+        type: "SET-TOTAL-COUNT",
+        totalCount: totalCount
+    } as const
+}
+
+
+
 export default usersReducer;

@@ -9,15 +9,41 @@ export class UsersC extends React.Component<InitialUsersStateType> {
 
     constructor(props: InitialUsersStateType | Readonly<InitialUsersStateType>) {
         super(props)
-        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalCount(response.data.totalCount)
+            })
+    }
+
+    onClickHandler = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
     }
 
+
+
     render = () => {
+
+        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        let pages = []
+
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+            if (i === 10) break
+        }
+
         return <div>
-            {/*<button onClick={this.getUsers}>Дай стэйт сука!</button>*/}
+            <div style={{"marginLeft": "400px", "marginTop": "25px"}}>
+                {pages.map(p => {
+                    return <span className={ this.props.currentPage === p ? styles.selectedPage : ''}
+                    onClick={ () => this.onClickHandler(p)}>{p} </span>
+                })}
+            </div>
             {
                 this.props.users.map(user => <div key={user.id} className={styles.all}>
                 <span>
