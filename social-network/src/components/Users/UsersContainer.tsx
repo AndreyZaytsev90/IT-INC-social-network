@@ -11,7 +11,8 @@ import {
 } from "../../redux/users-reducer";
 import {Dispatch} from "redux";
 import {UsersPropsType} from "../../redux/store";
-import {UsersC} from "./UsersС";
+import UsersPresentationComponent from "./UsersPresentationComponent";
+import axios from "axios";
 
 
 export type MapStatePropsType = {
@@ -28,7 +29,40 @@ export type MapDispatchPropsType = {
     setCurrentPage: (pageNumber: number) => MouseEventHandler<HTMLSpanElement>
     setTotalCount: (totalCount: number) => void
 }
+
 export type InitialUsersStateType = MapStatePropsType & MapDispatchPropsType
+
+
+class UsersContainer extends React.Component<InitialUsersStateType> {
+
+    constructor(props: InitialUsersStateType | Readonly<InitialUsersStateType>) {
+        super(props)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            })
+    }
+
+    render = () => {
+        return <UsersPresentationComponent users={this.props.users}
+                                           onPageChanged={this.onPageChanged}
+                                           follow={this.props.follow}
+                                           currentPage={this.props.currentPage}
+                                           pageSize={this.props.pageSize}
+                                           totalUsersCount={this.props.totalUsersCount}
+                                           unfollow={this.props.unfollow}/>
+    }
+}
+
 
 const mapStateToProps = (state: RootReducerType): MapStatePropsType => {
     return {
@@ -38,6 +72,7 @@ const mapStateToProps = (state: RootReducerType): MapStatePropsType => {
         currentPage: state.usersPage.currentPage
     }
 }
+
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
         follow: (userId: string) => {
@@ -58,4 +93,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     } as MapDispatchPropsType
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersC)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
