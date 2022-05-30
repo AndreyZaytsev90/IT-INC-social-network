@@ -3,13 +3,13 @@ import Users from "./Users";
 import {connect} from "react-redux";
 import {RootReducerType} from "../../redux/redux-store";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalCountAC,
-    setUsersAC, toggleIsFetchingAC,
-    unfollowAC
+    follow,
+    setCurrentPage,
+    setTotalCount,
+    setUsers, toggleIsFetching,
+    unfollow
 } from "../../redux/users-reducer";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {UsersPropsType} from "../../redux/store";
 import UsersPresentationComponent from "./UsersPresentationComponent";
 import axios from "axios";
@@ -28,7 +28,7 @@ export type MapDispatchPropsType = {
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     setUsers: (users: Array<UsersPropsType>) => void
-    setCurrentPage: (pageNumber: number) => MouseEventHandler<HTMLSpanElement>
+    setCurrentPage: (pageNumber: number) => void
     setTotalCount: (totalCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
 }
@@ -86,7 +86,7 @@ const mapStateToProps = (state: RootReducerType): MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+/*const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
         follow: (userId: string) => {
             dispatch(followAC(userId))
@@ -107,6 +107,20 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
             dispatch(toggleIsFetchingAC(isFetching))
         }
     } as MapDispatchPropsType
-}
+}*/
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+/*
+export default compose<React.ComponentType>(connect(mapStateToProps, {
+        follow,
+        unfollow,
+        setUsers,
+        setCurrentPage,
+        setTotalCount,
+        toggleIsFetching,
+    }),
+        withAuthRedirect
+)(UsersContainer)*/
+
+export default connect(mapStateToProps, {
+    follow, unfollow, setUsers, setCurrentPage,
+    setTotalCount, toggleIsFetching}) (UsersContainer)
