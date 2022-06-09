@@ -5,7 +5,6 @@ import App from './App';
 import {Provider} from "react-redux";
 import {store} from "./redux/redux-store";
 
-export const onChange = () => {
 
     ReactDOM.render(
         <React.StrictMode>
@@ -15,11 +14,11 @@ export const onChange = () => {
         </React.StrictMode>,
         document.getElementById('root')
     );
-}
+
 
 //store.subscribe(onChange) отменили подписку
 
-onChange()
+
 
 
 // If you want to start measuring performance in your app, pass a function

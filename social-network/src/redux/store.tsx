@@ -2,11 +2,11 @@ import {v1} from "uuid";
 import profileReducer, {addPostAC, updateNewPostAC} from "./profile-reducer";
 import dialogsReducer, {addMessageAC, updateNewMessageAC} from "./dialogs-reducer";
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalCountAC,
-    setUsersAC, toggleIsFetchingAC,
-    unfollowAC
+    follow,
+    setCurrentPage,
+    setTotalCount,
+    setUsers, toggleIsFetching,
+    unfollow
 } from "./users-reducer";
 
 
@@ -70,12 +70,12 @@ export type ActionsTypes =
     ReturnType<typeof updateNewPostAC> |
     ReturnType<typeof addMessageAC> |
     ReturnType<typeof updateNewMessageAC> |
-    ReturnType<typeof followAC> |
-    ReturnType<typeof unfollowAC> |
-    ReturnType<typeof setUsersAC> |
-    ReturnType<typeof setCurrentPageAC> |
-    ReturnType<typeof setTotalCountAC> |
-    ReturnType<typeof toggleIsFetchingAC>
+    ReturnType<typeof follow> |
+    ReturnType<typeof unfollow> |
+    ReturnType<typeof setUsers> |
+    ReturnType<typeof setCurrentPage> |
+    ReturnType<typeof setTotalCount> |
+    ReturnType<typeof toggleIsFetching>
 
 
 export const store: StoreType = {
